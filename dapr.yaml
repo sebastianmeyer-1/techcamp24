@@ -1,0 +1,16 @@
+version: 1
+common:
+  resourcesPath: ./components
+apps:
+  - appDirPath: ./Order.API/
+    appID: order-api
+    appPort: 5263
+    command: ["dotnet", "run"]
+  - appID: payment-processor
+    appPort: 5149
+    appDirPath: ./Payment.API/
+    command: ["dotnet", "run"]
+  - appID: barrista
+    appPort: 5171
+    appDirPath: ./Barrista.API/
+    command: ["dotnet", "run"]
