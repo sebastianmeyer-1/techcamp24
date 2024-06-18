@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapr.Client" Version="1.13.1" />
+  </ItemGroup>
+
 </Project>

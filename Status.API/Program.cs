@@ -1,34 +1,21 @@
-var builder = WebApplication.CreateBuilder(args);
+using Dapr.Client;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var daprClient = new DaprClientBuilder().Build();
+var DAPR_STATE_STORE = "statestore";
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/status/{orderId}", async (string orderId) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    string status = await daprClient.GetStateAsync<string>(DAPR_STATE_STORE, orderId);
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    return Results.Ok(new StatusMessage(orderId, status));
 });
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+internal record StatusMessage(string orderId, string status);

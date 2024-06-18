@@ -2,6 +2,6 @@ POST http://localhost:5263/order
 Content-Type: application/json
 
 {
-    "orderId": "12345",
-    "description": "Kaffee schwarz"
+    "orderId": "102030",
+    "description": "Flat white mocca docker"
 }
