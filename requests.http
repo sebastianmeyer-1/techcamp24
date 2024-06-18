@@ -1,7 +1,19 @@
+@orderId = 102031
+@description = Super duper flat white chocolate
+
+
+####################################################
+### CREATE NEW ORDER
+####################################################
 POST http://localhost:5263/order
 Content-Type: application/json
 
 {
-    "orderId": "102030",
-    "description": "Flat white mocca docker"
-}
+    "orderId": "{{orderId}}",
+    "description": "{{description}}"
+}  
+
+####################################################
+### GET ORDER STATUS
+####################################################
+GET http://localhost:5148/status/{{orderId}}

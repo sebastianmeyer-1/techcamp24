@@ -14,3 +14,7 @@ apps:
     appPort: 5171
     appDirPath: ./Barrista.API/
     command: ["dotnet", "run"]
+  - appID: status
+    appPort: 5148
+    appDirPath: ./Status.API/
+    command: ["dotnet", "run"]
